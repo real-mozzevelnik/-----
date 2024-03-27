@@ -1,0 +1,51 @@
+.aboutUsercontainer {
+  background-color: darkseagreen;
+  width: 100%;
+  margin-right: 30px;
+  height: 330px;
+  border-radius: 5px;
+  display: block;
+  flex-direction: row;
+  float: right;
+}
+
+.containerAbout {
+  display: flex;
+  flex-direction: row-reverse;
+  align-content: space-between;
+  justify-content: space-between;
+  flex-wrap: wrap;
+
+  padding: 10px 10px 10px 10px;
+  margin: 10px 10px 10px 10px;
+  background-color: white;
+  border-radius: 5px;
+  height: 25vh;
+  min-height: 25vh;
+  align-self: auto;
+}
+.information {
+  align-items: baseline;
+  width: 100%;
+  order: 1;
+}
+.buttonDel {
+  margin-right: 10px;
+  margin-bottom: 10px;
+}
+
+.text {
+  color: black;
+}
+
+.deleteButton {
+  width: 100%;
+  display: flex;
+  justify-content: flex-end;
+}
+
+.titleUsers {
+  color: white;
+  text-align: center;
+  padding: 5px;
+}

@@ -1,0 +1,191 @@
+.header {
+  position: fixed;
+  left: 0;
+  top: 0;
+  display: flex;
+  align-items: center;
+  width: 100%;
+  padding: 0 20px;
+  height: 50px;
+  background-color: darkseagreen;
+  box-shadow: 0 0 4px 4px rgba(0, 0, 0, 0.25);
+  z-index: 1;
+  box-sizing: border-box;
+}
+
+.logo-head {
+  width: 64px;
+  height: 64px;
+}
+
+.header-p {
+  position: relative;
+  color: #fff; /*задаём цвет ссылки*/
+  cursor: pointer;
+  line-height: 1; /*задаём высоту строки*/
+  text-decoration: none; /*убираем подчёркивание*/
+  font-weight: bolder;
+  -webkit-text-stroke: 1px #9d13b3;
+  -webkit-text-fill-color: white;
+  font-size: 32px;
+  font-weight: 900;
+}
+.header-p:after {
+  display: block;
+  position: absolute;
+  left: 0; /*изменить на right:0;, чтобы изменить направление подчёркивания */
+  width: 0; /*задаём длинну линии до наведения курсора*/
+  height: 2px; /*задаём ширину линии*/
+  background-color: #fff; /*задаём цвет линии*/
+  content: "";
+  transition: width 0.3s ease-out; /*задаём время анимации*/
+}
+
+.header-p:hover:after {
+  width: 100%;
+  transform: translationX(100%);
+}
+p:focus {
+  width: 100%; /*устанавливаем значение 100% чтобы ссылка подчёркивалась полностью*/
+}
+
+.header_logo {
+  display: flex;
+  flex-direction: row;
+  font-size: 20px;
+  line-height: 1;
+  font-weight: 700px;
+  color: #fff;
+  text-decoration: none;
+}
+
+.header_nav {
+  margin-left: auto;
+}
+
+.header_nav-list {
+  display: flex;
+  list-style-type: none;
+}
+
+.header_nav-item {
+  font-size: 20px;
+  line-height: 1;
+  color: #fff;
+  text-decoration: none;
+}
+
+.header_nav-item:nth-child(n + 2) {
+  margin-left: 20px;
+}
+
+.header_menu-button {
+  display: none;
+}
+
+.nav_item_li {
+  position: relative;
+  color: #fff; /*задаём цвет ссылки*/
+  cursor: pointer;
+  line-height: 1; /*задаём высоту строки*/
+  text-decoration: none; /*убираем подчёркивание*/
+}
+.nav_item_li:after {
+  display: block;
+  position: absolute;
+  left: 0; /*изменить на right:0;, чтобы изменить направление подчёркивания */
+  width: 0; /*задаём длинну линии до наведения курсора*/
+  height: 2px; /*задаём ширину линии*/
+  background-color: #fff; /*задаём цвет линии*/
+  content: "";
+  transition: width 0.3s ease-out; /*задаём время анимации*/
+}
+
+.nav_item_li:hover:after {
+  width: 100%;
+  transform: translationX(100%);
+}
+.nav_item_li:focus {
+  width: 100%; /*устанавливаем значение 100% чтобы ссылка подчёркивалась полностью*/
+}
+
+@media (max-width: 576px) {
+  .header_nav {
+    position: fixed;
+    top: -50px;
+    left: -225px;
+    display: flex;
+    width: 220px;
+    background-color: #fff;
+    border: 2px solid darkseagreen;
+    border-top-right-radius: 16px;
+    border-bottom-right-radius: 16px;
+    box-shadow: 0 0 4px 4px rgba(0, 0, 0, 0.25);
+    transition: transform 0.3s linear;
+  }
+
+  .header_nav.active {
+    transform: translateX(100%);
+  }
+
+  .header_nav-list {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    padding-top: 40px;
+    padding-left: 60px;
+  }
+
+  .header_nav-item {
+    margin: 10px 0;
+    font-weight: 500;
+    color: darkseagreen;
+    width: max-content;
+  }
+  .header_nav-item:nth-child(n + 2) {
+    margin-left: 0;
+  }
+
+  .header_menu-button {
+    display: block;
+    margin-left: auto;
+    width: 24px;
+    height: 24px;
+    background-color: transparent;
+    padding: 0;
+    border: 0;
+  }
+
+  .header-img {
+    width: 24px;
+    height: 24px;
+    display: block;
+    margin-left: auto;
+  }
+
+  .nav_item_li {
+    position: relative;
+    color: darkseagreen; /*задаём цвет ссылки*/
+    cursor: pointer;
+    line-height: 1; /*задаём высоту строки*/
+    text-decoration: none; /*убираем подчёркивание*/
+  }
+  .nav_item_li:after {
+    display: block;
+    position: absolute;
+    left: 0; /*изменить на right:0;, чтобы изменить направление подчёркивания */
+    width: 0; /*задаём длинну линии до наведения курсора*/
+    height: 2px; /*задаём ширину линии*/
+    background-color: darkseagreen; /*задаём цвет линии*/
+    content: "";
+    transition: width 0.3s ease-out; /*задаём время анимации*/
+  }
+
+  .nav_item_li:hover:after {
+    width: 100%;
+    transform: translationX(100%);
+  }
+  .nav_item_li:focus {
+    width: 100%; /*устанавливаем значение 100% чтобы ссылка подчёркивалась полностью*/
+  }
+}

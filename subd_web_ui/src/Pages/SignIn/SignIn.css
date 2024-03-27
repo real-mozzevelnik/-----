@@ -1,0 +1,134 @@
+p {
+  position: relative;
+  color: #d00505; /*задаём цвет ссылки*/
+  cursor: pointer;
+  line-height: 1; /*задаём высоту строки*/
+  text-decoration: none; /*убираем подчёркивание*/
+  font-size: 20px;
+  margin: 0;
+  padding: 14px;
+  align-content: center;
+}
+
+.titleLogo {
+  display: flex;
+  flex-direction: row;
+}
+
+.container {
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  background-color: darkseagreen;
+  margin: 0;
+}
+
+.mainContainer {
+  background-color: white;
+  position: relative;
+  min-width: 540px;
+  min-height: 360px;
+  flex-direction: column;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 3%;
+  -webkit-border-radius: 3%;
+  -moz-border-radius: 3%;
+  -ms-border-radius: 3%;
+  -o-border-radius: 3%;
+  vertical-align: middle;
+  /* min-height: 50vh; */
+  margin-bottom: 10%;
+}
+
+.titleContainer {
+  margin-top: 30px;
+  display: flex;
+  flex-direction: column;
+  font-size: 32px;
+  font-weight: bolder;
+  align-items: center;
+  justify-content: center;
+}
+
+.resultContainer,
+.historyItem {
+  flex-direction: row;
+  display: flex;
+  width: 400px;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.historyContainer {
+  flex-direction: column;
+  display: flex;
+  height: 200px;
+  align-items: center;
+  flex-grow: 5;
+  justify-content: flex-start;
+}
+
+.logo {
+  width: 109px;
+  height: 109px;
+}
+
+.title {
+  font-size: 64px;
+  font-weight: bold;
+  color: white;
+  -webkit-text-stroke: 2px #9d13b3;
+  -webkit-text-fill-color: white;
+}
+
+.buttonContainer {
+  background-color: darkseagreen;
+  border-color: transparent;
+  padding: 20px 60px 20px 60px;
+  border-radius: 8px;
+  border-radius: 1%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 24px;
+  width: 100px;
+  font-size: 20px;
+  margin-bottom: 50px;
+  -webkit-border-radius: 8px;
+  -moz-border-radius: 8px;
+  -ms-border-radius: 8px;
+  -o-border-radius: 8px;
+}
+
+.inputContainer {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: center;
+}
+
+.inputContainerErr {
+  position: absolute;
+  position: absolute;
+  margin-left: auto;
+  margin-right: auto;
+  left: 0;
+  right: 0;
+  text-align: center;
+  color: red;
+  font-size: 20px;
+}
+
+.inputBox {
+  height: 48px;
+  width: 400px;
+  font-size: large;
+  border-radius: 8px;
+  border: 1px solid grey;
+  padding-left: 8px;
+}

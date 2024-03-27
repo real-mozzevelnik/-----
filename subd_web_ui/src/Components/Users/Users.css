@@ -1,0 +1,118 @@
+.users-container {
+  height: 90vh;
+  min-height: 90vh;
+  background-color: darkseagreen;
+  flex: 1;
+
+  align-items: center;
+
+  border-radius: 5px;
+  float: left;
+  margin-right: 30px;
+  margin-left: 30px;
+}
+
+.containerUs {
+  padding: 10px 10px 10px 10px;
+  margin: 10px 10px 40px 10px;
+  background-color: white;
+  border-radius: 5px;
+  height: 80vh;
+  min-height: 80vh;
+}
+
+.containerUsScroll {
+  background-color: white;
+  height: 76vh;
+  min-height: 76vh;
+}
+
+li {
+  list-style-type: none;
+}
+
+ul {
+  margin-left: 0;
+  /* Отступ слева в браузере IE и Opera */
+  padding-left: 0;
+  /* Отступ слева в браузере Firefox, Safari, Chrome */
+}
+
+.userSelect {
+  background-color: white;
+  width: auto;
+  white-space: nowrap;
+  width: 290px;
+  text-align: start;
+  padding: auto;
+  font-weight: normal;
+  font-size: 20px;
+}
+.userSelectActive {
+  background-color: darkolivegreen;
+  color: white;
+  width: auto;
+  white-space: nowrap;
+  width: 290px;
+  text-align: start;
+  padding: auto;
+  font-weight: normal;
+  font-size: 20px;
+}
+
+.titleUsers {
+  color: white;
+  text-align: center;
+  padding: 5px;
+  font-size: 28px;
+}
+
+.titleUsers1 {
+  color: black;
+  text-align: center;
+  padding: 0;
+  margin-top: 0;
+  font-size: 24px;
+}
+.usersList {
+  margin: 0;
+  font-weight: normal;
+}
+.user {
+  display: flex;
+
+  justify-content: space-between;
+}
+
+.text {
+  padding: auto;
+}
+
+.another {
+  width: 70%;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  z-index: 0;
+  margin-right: 80px;
+}
+
+/* .deleteImg {
+  display: flex;
+  height: 50px;
+  width: 50px;
+  position: absolute;
+  display: flex !important;
+  align-items: center;
+  justify-content: center;
+  top: 50%;
+  left: 50%;
+  -webkit-transform: translate(-50%, -50%);
+  -ms-transform: translate(-50%, -50%);
+  transform: translate(-50%, -50%);
+}
+.deleteButton {
+  display: flex;
+  height: 50px;
+  width: 50px;
+} */
