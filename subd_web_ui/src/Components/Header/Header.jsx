@@ -16,7 +16,7 @@ export const SearchIcon = () => (
 
 export const Header = () => {
   const [isOpen, setOpen] = useState();
-  const { setToken } = useAuth();
+  const { setAuth } = useAuth();
   const navigate = useNavigate();
   const [data, setData] = useState("");
 
@@ -39,7 +39,7 @@ export const Header = () => {
   });
   //выход с аккаунта изменение токена
   const handleLogout = () => {
-    setToken();
+    setAuth(false);
     navigate("/", { replace: false });
   };
   //выход с сервера

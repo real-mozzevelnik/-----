@@ -2,34 +2,31 @@
 
 //провайдер для авторизованных пользователей устанавливает токен для сессии
 //получает токен после авторизации и аунтефикации с бэком
-import axios from "axios";
 import { createContext, useContext, useEffect, useMemo, useState } from "react";
 
 const AuthContext = createContext();
 
 const AuthProvider = ({ children }) => {
-  const [token, setToken_] = useState(localStorage.getItem("token"));
+  const [isAuth, setAuth_] = useState(localStorage.getItem("isAuth"));
 
-  const setToken = (newToken) => {
-    setToken_(newToken);
+  const setAuth = (newAuth) => {
+    setAuth_(newAuth);
   };
 
   useEffect(() => {
-    if (token) {
-      axios.defaults.headers.common["Authorization"] = "Bearer " + token;
-      localStorage.setItem("token", token);
+    if (isAuth) {
+      localStorage.setItem("isAuth", isAuth);
     } else {
-      delete axios.defaults.headers.common["Authorization"];
-      localStorage.removeItem("token");
+      localStorage.removeItem("isAuth");
     }
-  }, [token]);
+  }, [isAuth]);
 
   const contextValue = useMemo(
     () => ({
-      token,
-      setToken,
+      isAuth,
+      setAuth,
     }),
-    [token]
+    [isAuth]
   );
   return (
     <AuthContext.Provider value={contextValue}>{children}</AuthContext.Provider>

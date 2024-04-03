@@ -6,7 +6,7 @@ import validator from "validator";
 
 export default function Dropdown() {
   //для проверки url
-  const [addMessage, setAddMessege] = useState("");
+  // const [addMessage, setAddMessege] = useState("");
   const [errorMessage, setErrorMessage] = useState("");
   const [Name, setName] = useState("");
   const [URL, setUrl] = useState("");
@@ -38,32 +38,29 @@ export default function Dropdown() {
   const handleDropdownClick = () => {
     setDropdownState({ open: !dropdownState.open });
     setErrorMessage("");
-    setAddMessege("");
+    // setAddMessege("");
   };
 
   //при нажатии на добавление проверка ввода
   const handleDropdownAddClick = () => {
+    if (!validator.isURL(URL) && Name === "") {
+      setErrorMessage("Name and URL incorrect");
+      return;
+    }
+    if (Name === "") {
+      setErrorMessage("Name can't be empty");
+      return;
+    }
+    if (!validator.isURL(URL)) {
+      setErrorMessage("URL incorrect");
+      return;
+    }
     if (validator.isURL(URL) && Name !== "") {
-      setAddMessege("Добавляем Базу данных");
       setErrorMessage("");
-      setTimeout(() => {
-        setAddMessege("");
-        setErrorMessage("");
-        setName("");
-        setUrl("");
-        setDropdownState({ open: false });
-      }, 1000);
-    } else {
-      if (!validator.isURL(URL) && Name === "") {
-        setErrorMessage("Введеное вами имя и URL не корректны");
-      } else {
-        if (Name === "") {
-          setErrorMessage("Название не может быть пустым");
-        }
-        if (!validator.isURL(URL)) {
-          setErrorMessage("URL не корректно");
-        }
-      }
+      setErrorMessage("");
+      setName("");
+      setUrl("");
+      setDropdownState({ open: false });
     }
   };
 
@@ -82,7 +79,7 @@ export default function Dropdown() {
   }, []);
 
   return (
-    <div className="drop-down" ref={container}>
+    <div className="drop-down-db" ref={container}>
       <Button
         className="drop-down-add"
         type="button"
@@ -103,6 +100,7 @@ export default function Dropdown() {
             placeholder={"URL для подклбючения бд"}
             onChange={handleChangeUrl}
           />
+          <br />
           <span
             className="input-error"
             style={{
@@ -112,6 +110,7 @@ export default function Dropdown() {
           >
             {errorMessage}
           </span>
+          <br />
           <Button
             className="drop-down-add"
             type="button"
@@ -119,15 +118,6 @@ export default function Dropdown() {
           >
             Добавить БД
           </Button>
-          <span
-            className="input-add"
-            style={{
-              fontWeight: "bold",
-              color: "green",
-            }}
-          >
-            {addMessage}
-          </span>
         </div>
       )}
     </div>

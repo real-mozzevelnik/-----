@@ -9,7 +9,7 @@ import Table from "../Pages/Table/Table";
 import Query from "../Pages/Query/Query";
 
 const Routes = () => {
-  const { token } = useAuth();
+  const { isAuth } = useAuth();
 
   const routesForPublic = [];
 
@@ -47,7 +47,7 @@ const Routes = () => {
 
   const router = createBrowserRouter([
     ...routesForPublic,
-    ...(!token ? routesForNotAuthenticatedOnly : []),
+    ...(!isAuth ? routesForNotAuthenticatedOnly : []),
     ...routesForAuthenticatedOnlyUsers,
   ]);
 

@@ -66,7 +66,6 @@ export default function Users() {
     ) {
       setClickedId(-1);
       setUser({ login: "", password: "", role: "" });
-      console.log(e.target.className);
     }
   };
 
