@@ -1,7 +1,8 @@
 import { NestFactory } from '@nestjs/core';
 import { AppModule } from './app.module';
 import * as passport from 'passport';
-import * as session from 'express-session';
+import session from 'express-session';
+import { DBClient } from './database.client';
 const cors = require('cors');
 
 async function bootstrap() {
