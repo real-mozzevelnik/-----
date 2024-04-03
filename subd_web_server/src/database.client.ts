@@ -1,4 +1,4 @@
-import { time } from 'console';
+import {Mutex, MutexInterface, Semaphore, SemaphoreInterface, withTimeout} from 'async-mutex';
 import { randomUUID } from 'crypto';
 import { Socket } from 'net';
 
@@ -6,17 +6,20 @@ import { Socket } from 'net';
 export class DBClient {
     host: string;
     port: string;
-    client: Socket;
+    #client: Socket;
+    #mutex: Mutex;
+
 
     constructor(host: string, port: string) {
         this.host = host;
         this.port = port;
+        this.#mutex = new Mutex();
     }
 
     async Connect() {
-        this.client = new Socket();
+        this.#client = new Socket();
         let isConnected: boolean = false;
-        this.client.connect({host: this.host, port: parseInt(this.port)}, function() {
+        this.#client.connect({host: this.host, port: parseInt(this.port)}, function() {
             isConnected = true;
         });
 
@@ -45,16 +48,31 @@ export class DBClient {
         return new Promise(resolve => setTimeout(resolve, ms));
     }
 
-    async #send(message: Buffer) {
-        this.client.write(message);
+    async #send(message: Buffer): Promise<Object> {
+        const release = await this.#mutex.acquire();
 
-        let data = this.client.read();
-        while (data == null) {
-            await this.#delay(100);
-            data = this.client.read();
+        try {
+            this.#client.write(message);
+
+            let readResult = []; 
+            let data = this.#client.read();
+            while (data == null) {
+                await this.#delay(100);
+                data = this.#client.read();
+            }
+            while (data != null) {
+                readResult.push(data);
+                data = this.#client.read();
+            }
+
+            return JSON.parse(Buffer.concat(readResult).toString());
         }
-
-        return JSON.parse(data.toString());
+        catch (e) {
+            return {} as Object
+        }
+        finally {
+            release();
+        }
     }
 
     #configureMessage(action: string, data: Object): Buffer {
