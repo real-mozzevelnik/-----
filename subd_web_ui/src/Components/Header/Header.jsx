@@ -46,8 +46,8 @@ export const Header = () => {
   const exit = () => {
     apiClient
       .post("auth/logout", data)
-      .then((response) => {
-        console.log(response.data);
+      .then(() => {
+        // console.log(response.data);
       })
       .catch((error) => {
         console.log(error);
@@ -75,7 +75,7 @@ export const Header = () => {
             <NavLink to="/query" className="header_nav-item">
               <li className="nav_item_li">SQL Query</li>
             </NavLink>
-            {data === "admin" && (
+            {(data === "admin" || data === "admin\r") && (
               <NavLink to="/admin" className="header_nav-item">
                 <li className="nav_item_li">Admin</li>
               </NavLink>
