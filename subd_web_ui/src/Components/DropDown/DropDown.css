@@ -1,7 +1,10 @@
-.drop-down {
+.drop-down-db {
   position: relative;
-  margin-top: 50px;
+  display: flex;
   width: 250px;
+  flex-direction: column;
+  margin-top: 10px;
+  margin-left: 0px;
 }
 
 .drop-down-input {

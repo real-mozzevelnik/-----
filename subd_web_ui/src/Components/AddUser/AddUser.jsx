@@ -75,13 +75,13 @@ export default function Dropdown() {
 
   const handleDropdownAddClick = () => {
     if (login === "") {
-      setLoginErrorMessage("Логин не может быть пустым");
+      setLoginErrorMessage("Login can't be empty");
     }
     if (password === "") {
-      setPasswordErrorMessage("Пароль не может быть пустым");
+      setPasswordErrorMessage("Password can't be empty");
     }
     if (role === "") {
-      setRoleErrorMessege("Выберите роль для пользователя");
+      setRoleErrorMessege("Choose role for user");
     }
     if (login !== "" && password !== "" && role !== "") {
       if (UniqueName(login)) {

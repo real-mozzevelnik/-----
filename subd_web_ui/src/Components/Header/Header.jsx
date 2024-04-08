@@ -16,7 +16,7 @@ export const SearchIcon = () => (
 
 export const Header = () => {
   const [isOpen, setOpen] = useState();
-  const { setToken } = useAuth();
+  const { setAuth } = useAuth();
   const navigate = useNavigate();
   const [data, setData] = useState("");
 
@@ -39,15 +39,15 @@ export const Header = () => {
   });
   //выход с аккаунта изменение токена
   const handleLogout = () => {
-    setToken();
+    setAuth(false);
     navigate("/", { replace: false });
   };
   //выход с сервера
   const exit = () => {
     apiClient
       .post("auth/logout", data)
-      .then((response) => {
-        console.log(response.data);
+      .then(() => {
+        // console.log(response.data);
       })
       .catch((error) => {
         console.log(error);
@@ -75,7 +75,7 @@ export const Header = () => {
             <NavLink to="/query" className="header_nav-item">
               <li className="nav_item_li">SQL Query</li>
             </NavLink>
-            {data === "admin" && (
+            {(data === "admin" || data === "admin\r") && (
               <NavLink to="/admin" className="header_nav-item">
                 <li className="nav_item_li">Admin</li>
               </NavLink>

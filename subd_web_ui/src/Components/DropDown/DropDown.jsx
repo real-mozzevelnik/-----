@@ -2,20 +2,39 @@
 import { useState, useRef, useEffect } from "react";
 import Button from "../Button/Button";
 import "./DropDown.css";
+import isHost from "https://cdn.skypack.dev/is-host";
 import validator from "validator";
+import axios from "axios";
 
 export default function Dropdown() {
+  const apiClient = axios.create({
+    baseURL: "http://localhost:3000",
+    withCredentials: true,
+  });
+
   //для проверки url
   const [addMessage, setAddMessege] = useState("");
   const [errorMessage, setErrorMessage] = useState("");
   const [Name, setName] = useState("");
-  const [URL, setUrl] = useState("");
+  const [Host, setHost] = useState("");
+  const [Port, setPort] = useState();
+
+  const [dataAdd, setDataAdd] = useState({ name: "", host: "", port: "" }); //для отправки на сервер
 
   //проверка url
-  const validate = (value) => {
-    if (validator.isURL(value)) {
-      // setErrorMessage("Is Valid URL");
-      setUrl(value);
+  const validate = (value, event) => {
+    if (isHost(value)) {
+      setHost(value);
+      setDataAdd({ ...dataAdd, [event.target.name]: event.target.value });
+    } else {
+      // setErrorMessage("Is Not Valid URL");
+    }
+  };
+
+  const validatePort = (value, event) => {
+    if (validator.isPort(value)) {
+      setPort(value);
+      setDataAdd({ ...dataAdd, [event.target.name]: event.target.value });
     } else {
       // setErrorMessage("Is Not Valid URL");
     }
@@ -24,11 +43,15 @@ export default function Dropdown() {
   const container = useRef();
 
   //изменение при вводе
-  const handleChangeUrl = (event) => {
-    validate(event.target.value);
+  const handleChangeHost = (event) => {
+    validate(event.target.value, event);
   };
   const handleChangeName = (event) => {
     setName(event.target.value);
+    setDataAdd({ ...dataAdd, [event.target.name]: event.target.value });
+  };
+  const handleChangePort = (event) => {
+    validatePort(event.target.value, event);
   };
 
   // состояние меню ввода
@@ -43,27 +66,38 @@ export default function Dropdown() {
 
   //при нажатии на добавление проверка ввода
   const handleDropdownAddClick = () => {
-    if (validator.isURL(URL) && Name !== "") {
-      setAddMessege("Добавляем Базу данных");
+    if (!isHost(Host) && Name === "" && !validator.isPort(Port)) {
+      setErrorMessage("Name, Host, Port incorrect");
+      return;
+    }
+    if (Name === "") {
+      setErrorMessage("Name can't be empty");
+      return;
+    }
+    if (!isHost(Host)) {
+      setErrorMessage("Host incorrect");
+      return;
+    }
+    if (Port === "") {
+      setErrorMessage("Port incorrect");
+      return;
+    }
+    if (!validator.isPort(Port)) {
+      setErrorMessage("Port incorrect");
+      return;
+    }
+    if (isHost(Host) && Name !== "" && validator.isPort(Port)) {
+      apiClient
+        .post("/dbases/addBase", dataAdd)
+        .then(() => {})
+        .catch((error) => {
+          console.log(error);
+        });
       setErrorMessage("");
-      setTimeout(() => {
-        setAddMessege("");
-        setErrorMessage("");
-        setName("");
-        setUrl("");
-        setDropdownState({ open: false });
-      }, 1000);
-    } else {
-      if (!validator.isURL(URL) && Name === "") {
-        setErrorMessage("Введеное вами имя и URL не корректны");
-      } else {
-        if (Name === "") {
-          setErrorMessage("Название не может быть пустым");
-        }
-        if (!validator.isURL(URL)) {
-          setErrorMessage("URL не корректно");
-        }
-      }
+      setName("");
+      setHost("");
+      setPort("");
+      setDropdownState({ open: false });
     }
   };
 
@@ -71,6 +105,9 @@ export default function Dropdown() {
   const handleClickOutside = (e) => {
     if (container.current && !container.current.contains(e.target)) {
       setDropdownState({ open: false });
+      setName("");
+      setHost("");
+      setPort("");
     }
     setErrorMessage("");
   };
@@ -82,27 +119,37 @@ export default function Dropdown() {
   }, []);
 
   return (
-    <div className="drop-down" ref={container}>
+    <div className="drop-down-db" ref={container}>
       <Button
         className="drop-down-add"
         type="button"
         onClick={handleDropdownClick}
       >
-        Добавление
+        Adding
       </Button>
       {dropdownState.open && (
-        <div>
+        <div className="inputs">
           <input
+            name="name"
             className="drop-down-input"
-            placeholder={"Название бд"}
+            placeholder={"Name of Data Base"}
             onChange={handleChangeName}
           />
 
           <input
             className="drop-down-input"
-            placeholder={"URL для подклбючения бд"}
-            onChange={handleChangeUrl}
+            name="host"
+            placeholder={"Host for Data Base"}
+            onChange={handleChangeHost}
           />
+
+          <input
+            className="drop-down-input"
+            name="port"
+            placeholder={"Port for Data Base"}
+            onChange={handleChangePort}
+          />
+          <br />
           <span
             className="input-error"
             style={{
@@ -112,12 +159,13 @@ export default function Dropdown() {
           >
             {errorMessage}
           </span>
+          <br />
           <Button
             className="drop-down-add"
             type="button"
             onClick={handleDropdownAddClick}
           >
-            Добавить БД
+            Adding Data Base
           </Button>
           <span
             className="input-add"

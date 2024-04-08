@@ -13,7 +13,7 @@ const SignIn = () => {
   const [messege, setMessage] = useState("");
 
   const navigate = useNavigate();
-  const { setToken } = useAuth();
+  const { setAuth } = useAuth();
 
   const apiClient = axios.create({
     baseURL: "http://localhost:3000",
@@ -25,9 +25,9 @@ const SignIn = () => {
     setMessage("");
   };
 
-  const handleLogin = (token) => {
+  const handleLogin = () => {
     setMessage("");
-    setToken(token);
+    setAuth(true);
     navigate("/", { replace: true });
   };
 
@@ -49,9 +49,9 @@ const SignIn = () => {
     event.preventDefault();
     apiClient
       .post("auth/login", data)
-      .then((response) => {
+      .then(() => {
         // setResponse(response.data);
-        handleLogin(response.data);
+        handleLogin();
       })
       .catch((error) => {
         setMessage("Incorrect login or password");

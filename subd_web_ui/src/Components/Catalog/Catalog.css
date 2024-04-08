@@ -1,0 +1,23 @@
+.catalog {
+  display: flex;
+  height: 300px;
+  width: 600px;
+  background-color: darkseagreen;
+  border-radius: 5px;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
+
+.titleCatalog {
+  color: white;
+  font-size: 24px;
+  font-weight: bold;
+}
+
+.listDb {
+  width: 90%;
+  height: 70%;
+  background-color: white;
+  border-radius: 5px;
+}
