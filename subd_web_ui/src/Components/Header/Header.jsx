@@ -36,7 +36,7 @@ export const Header = () => {
         console.log(error);
         exit();
       });
-  });
+  }, []);
   //выход с аккаунта изменение токена
   const handleLogout = () => {
     setAuth(false);

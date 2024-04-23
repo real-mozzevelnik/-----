@@ -31,7 +31,7 @@ export const AboutUser = ({
 
   return (
     <div className="aboutUsercontainer">
-      <p className="titleUsers">Информация о пользователе</p>
+      <p className="titleUsers">Information about user</p>
       <div className="containerAbout">
         <div className="information">
           <p className="text">Login : {login}</p>

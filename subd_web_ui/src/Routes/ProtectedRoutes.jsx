@@ -20,7 +20,7 @@ export const ProtectedRoute = () => {
         console.log(error);
         setAuth(false);
       });
-  });
+  }, []);
 
   // Проверка айнтефикации
   if (!isAuth) {

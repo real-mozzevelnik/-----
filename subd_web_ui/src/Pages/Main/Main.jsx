@@ -10,8 +10,8 @@ export default function Main() {
       <div className="mainPage">
         <div className="bases">
           <Catalog />
-          <Dropdown />
         </div>
+        <Dropdown />
       </div>
     </div>
   );

@@ -1,0 +1,7 @@
+.tablePage {
+  display: flex;
+  flex: 1;
+  margin-top: 60px;
+  margin-left: 30px;
+  flex-direction: row;
+}

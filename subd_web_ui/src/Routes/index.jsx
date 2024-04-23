@@ -11,8 +11,12 @@ import Table from "../Pages/Table/Table";
 import Query from "../Pages/Query/Query";
 
 const Routes = () => {
+  let children1 = [];
   let routesForAuthenticatedOnlyUsers = [];
   const [data, setData] = useState("");
+
+  const { isAuth } = useAuth();
+  const { setAuth } = useAuth();
 
   const apiClient = axios.create({
     baseURL: "http://localhost:3000",
@@ -20,67 +24,47 @@ const Routes = () => {
   });
 
   useEffect(() => {
-    apiClient
-      .get("auth/profile", data)
-      .then((response) => {
-        setData(response.data.user.role);
-      })
-      .catch((error) => {
-        console.log(error);
-      });
-  });
+    if (data !== "") {
+      apiClient
+        .get("auth/profile", data)
+        .then((response) => {
+          setData(response.data.user.role);
+        })
+        .catch((error) => {
+          setAuth(false);
+          console.log(error);
+        });
+    }
+  }, [data]);
 
-  const { isAuth } = useAuth();
+  children1 = [
+    {
+      path: "",
+      element: <Main />,
+    },
+    {
+      path: "/admin",
+      element: <Admin />,
+    },
+    {
+      path: "/table",
+      element: <Table />,
+    },
+    {
+      path: "/query",
+      element: <Query />,
+    },
+  ];
 
   const routesForPublic = [];
 
-  if (data === "admin" || data === "admin\r") {
-    routesForAuthenticatedOnlyUsers = [
-      {
-        path: "/",
-        element: <ProtectedRoute />,
-        children: [
-          {
-            path: "",
-            element: <Main />,
-          },
-          {
-            path: "/admin",
-            element: <Admin />,
-          },
-          {
-            path: "/table",
-            element: <Table />,
-          },
-          {
-            path: "/query",
-            element: <Query />,
-          },
-        ],
-      },
-    ];
-  } else {
-    routesForAuthenticatedOnlyUsers = [
-      {
-        path: "/",
-        element: <ProtectedRoute />,
-        children: [
-          {
-            path: "",
-            element: <Main />,
-          },
-          {
-            path: "/table",
-            element: <Table />,
-          },
-          {
-            path: "/query",
-            element: <Query />,
-          },
-        ],
-      },
-    ];
-  }
+  routesForAuthenticatedOnlyUsers = [
+    {
+      path: "/",
+      element: <ProtectedRoute />,
+      children: children1,
+    },
+  ];
 
   const routesForNotAuthenticatedOnly = [
     {

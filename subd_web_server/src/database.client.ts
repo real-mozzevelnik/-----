@@ -48,7 +48,6 @@ export class DBClient {
   async Info() {
     const message = this.#configureMessage('db_info', { test: 'test' });
     const response = await this.#send(message);
-
     return response;
   }
 

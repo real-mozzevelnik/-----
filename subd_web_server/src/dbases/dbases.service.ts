@@ -1,13 +1,15 @@
+/* eslint-disable prettier/prettier */
 /* eslint-disable @typescript-eslint/no-var-requires */
 import { Injectable } from '@nestjs/common';
 import { createWriteStream } from 'fs';
+import { DBClient } from '../database.client';
 
 export interface Base {
   name: string;
   host: string;
   port: string;
+  db: DBClient;
 }
-
 @Injectable()
 export class BasesService {
   private bases: Base[];
@@ -21,30 +23,42 @@ export class BasesService {
       const nameBase = Base[0];
       const hostBase = Base[1];
       const portBase = Base[2];
+      const db = new DBClient(hostBase, portBase);
+      db.Connect();
       this.bases.push({
         name: nameBase,
         host: hostBase,
         port: portBase,
+        db: db,
       });
     }
   }
 
   addBase(name: string, host: string, port: string): Base[] {
-    this.bases.push({ name, host, port });
-    const file = createWriteStream('dataBase.txt', { flags: 'a' });
-    file.write(name + ' ' + host + ' ' + port + '\n');
-    return this.bases;
+    console.log(name);
+    const db = new DBClient(host, port);
+    const nameDb = name;
+    db.Connect();
+    const index = this.bases.findIndex(({ name }) => name === nameDb);
+    // console.log(index);
+    if (index === -1) {
+      this.bases.push({ name, host, port, db });
+      const file = createWriteStream('dataBase.txt', { flags: 'a' });
+      file.write(name + ' ' + host + ' ' + port + '\n');
+      return this.bases;
+    } else {
+      return null;
+    }
   }
 
   deleteBase(Deletename: string) {
-    const file1 = createWriteStream('data.txt');
+    const file1 = createWriteStream('dataBase.txt');
     file1.write('');
-
     this.bases.splice(
       this.bases.findIndex(({ name }) => name === Deletename),
       1,
     );
-    const file = createWriteStream('data.txt', { flags: 'a+' });
+    const file = createWriteStream('dataBase.txt', { flags: 'a+' });
     for (const i in this.bases)
       file.write(
         this.bases[i].name +
@@ -58,5 +72,27 @@ export class BasesService {
 
   getBases() {
     return this.bases;
+  }
+
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  async getInfo(nameDb: string) {
+    const index = this.bases.findIndex(({ name }) => name === nameDb);
+    // this.bases[index].db.Connect();
+    const databaseInfo = await this.bases[index].db.Info();
+    // console.log(JSON.stringify(databaseInfo, null, 4));
+    return JSON.stringify(databaseInfo, null, 4);
+  }
+
+  async getDataFromBd(nameDb: string, nameTable: string) {
+    const index = this.bases.findIndex(({ name }) => name === nameDb);
+    // this.bases[index].db.Connect();
+    console.log(` 1 select age, email, job, name, phone from ${nameTable};`);
+    const databaseInfo = await this.bases[index].db.SqlStatement(
+      `select age, email, job, name, phone from ${nameTable};`,
+    );
+    console.log(JSON.stringify(databaseInfo, null, 4));
+    console.log(` 2 select age, email, job, name, phone from ${nameTable};`);
+    console.log(JSON.stringify(databaseInfo, null, 4));
+    return JSON.stringify(databaseInfo, null, 4);
   }
 }

@@ -89,15 +89,21 @@ export default function Dropdown() {
     if (isHost(Host) && Name !== "" && validator.isPort(Port)) {
       apiClient
         .post("/dbases/addBase", dataAdd)
-        .then(() => {})
+        .then((response) => {
+          // console.log(response.data);
+          if (response.data === "") {
+            setErrorMessage("Data base with this name already exists");
+          } else {
+            setErrorMessage("");
+            setName("");
+            setHost("");
+            setPort("");
+            setDropdownState({ open: false });
+          }
+        })
         .catch((error) => {
           console.log(error);
         });
-      setErrorMessage("");
-      setName("");
-      setHost("");
-      setPort("");
-      setDropdownState({ open: false });
     }
   };
 

@@ -1,7 +1,15 @@
+/* eslint-disable react-hooks/exhaustive-deps */
+/* eslint-disable no-prototype-builtins */
 /* eslint-disable react/prop-types */
 import { useState, useEffect, useRef } from "react";
 import axios from "axios";
 import "./Catalog.css";
+import { AboutDataBase } from "../AboutDataBase/AboutDatabase";
+
+let count = "";
+let countEntries = "";
+
+// const useMountEffect = (fun) => useEffect(fun);
 
 const myComponent = {
   overflowY: "scroll",
@@ -14,28 +22,70 @@ export default function Catalog() {
   });
 
   const [data, setData] = useState([{ name: "", host: "", port: "" }]);
-  const [baseAbout, setBase] = useState({ name: "", host: "", port: "" });
+  const [baseAbout, setBase] = useState({
+    name: "",
+    host: "",
+    port: "",
+  });
+
+  function getInfoCount(obj) {
+    var count = 0;
+    for (var prop in obj) {
+      if (obj.hasOwnProperty(prop)) {
+        ++count;
+      }
+    }
+    if (count === 0) {
+      return 0;
+    }
+    return count;
+  }
+
+  function getInfoCountEntries(obj) {
+    {
+      var countEntries = 0;
+      for (var prop in obj) {
+        countEntries += obj[prop].length;
+      }
+    }
+    if (countEntries === 0) {
+      return 0;
+    }
+    return countEntries;
+  }
 
   useEffect(() => {
-    let array = [{ name: "", host: "", port: "" }];
-
     apiClient
-      .post("/dbases/getBases", array)
+      .post("/dbases/getBases")
       .then((response) => {
-        array = response.data;
-        setData(array);
+        setData(response.data);
+        localStorage.setItem("bases", JSON.stringify(data));
       })
       .catch((error) => {
         console.log(error);
       });
   });
 
+  const getBaseInfo = (name) => {
+    apiClient
+      .post("/dbases/getInfo", { name })
+      .then((response) => {
+        console.log(response.data);
+        count = getInfoCount(response.data.data);
+        countEntries = getInfoCountEntries(response.data.data);
+        localStorage.setItem("info", JSON.stringify(response.data.data));
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  };
+
   const [clickedId, setClickedId] = useState(-1);
   const container = useRef();
 
-  //   const cleanAbout = () => {
-  //     setUser({ login: "", password: "", role: "" });
-  //   };
+  const cleanAbout = () => {
+    setBase({ name: "", host: "", port: "", count: "", countEntries: "" });
+  };
 
   useEffect(() => {
     document.addEventListener("mousedown", handleClickOutside);
@@ -50,9 +100,10 @@ export default function Catalog() {
       e.target.className !== ""
     ) {
       setClickedId(-1);
+      cleanAbout();
     }
   };
-
+  // useMountEffect(getBases);
   return (
     <>
       <div className="catalog">
@@ -66,12 +117,18 @@ export default function Catalog() {
                     key={i}
                     onClick={() => {
                       if (i === clickedId) {
+                        cleanAbout();
                         setClickedId(-1);
-                        setBase({ name: "", host: "", port: "" });
                       } else {
                         if (clickedId === -1 || i !== clickedId) {
+                          getBaseInfo(base.name, i);
+
                           setClickedId(i);
-                          setBase();
+                          setBase({
+                            name: base.name,
+                            host: base.host,
+                            port: base.port,
+                          });
                         }
                       }
                     }}
@@ -87,6 +144,49 @@ export default function Catalog() {
           </ul>
         </div>
       </div>
+      {
+        <div className="another">
+          <AboutDataBase
+            name={baseAbout.name}
+            host={baseAbout.host}
+            port={baseAbout.port}
+            count={count}
+            countEntries={countEntries}
+            cleanInfo={cleanAbout}
+          />
+        </div>
+      }
     </>
   );
 }
+
+// useEffect(() => {
+//   let array = [{ name: "", host: "", port: "" }];
+//   let arrayInfo = [{ count: "", countentries: "" }];
+//   arrayInfo.shift();
+//   apiClient
+//     .post("/dbases/getBases", array)
+//     .then((response) => {
+//       array = response.data;
+//       setData(array);
+// for (let i = 0; i < array.length; i++) {
+//   const name = array[i].name;
+//   apiClient
+//     .post("/dbases/getInfo", { name })
+//     .then((response) => {
+//       const dbInf = getInfo(response.data.data);
+//       arrayInfo.push({
+//         count: dbInf.count,
+//         countEntries: dbInf.countEntries,
+//       });
+//     })
+//     .catch((error) => {
+//       console.log(error);
+//     });
+// }
+//       // setDataInfo(arrayInfo);
+//     })
+//     .catch((error) => {
+//       console.log(error);
+//     });
+// }, []);

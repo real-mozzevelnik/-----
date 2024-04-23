@@ -18,4 +18,14 @@ export class BasesController {
   getBases() {
     return this.baseService.getBases();
   }
+
+  @Post('getInfo')
+  getInfo(@Body('name') name) {
+    return this.baseService.getInfo(name);
+  }
+
+  @Post('getData')
+  getData(@Body('name') name, @Body('table') nameTable) {
+    return this.baseService.getDataFromBd(name, nameTable);
+  }
 }
