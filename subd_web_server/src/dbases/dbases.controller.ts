@@ -28,4 +28,9 @@ export class BasesController {
   getData(@Body('name') name, @Body('table') nameTable) {
     return this.baseService.getDataFromBd(name, nameTable);
   }
+
+  @Post('getQuery')
+  getQuery(@Body('name') name, @Body('query') query) {
+    return this.baseService.getQuery(name, query);
+  }
 }

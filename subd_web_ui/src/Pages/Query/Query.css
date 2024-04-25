@@ -1,0 +1,11 @@
+.mainPage {
+  flex: 1;
+  margin-top: 60px;
+  flex-direction: row;
+}
+
+.basesQ {
+  display: flex;
+  flex-direction: row;
+  margin-left: 30px;
+}

@@ -102,7 +102,7 @@ export default function Dropdown() {
         setDataAdd({ login: "", password: "", role: "" });
         setDropdownState({ open: false });
       } else {
-        setAddMessege("Данный логин уже занят");
+        setAddMessege("This login is already occupied");
       }
     }
   };
@@ -138,7 +138,7 @@ export default function Dropdown() {
           <input
             name="login"
             className="drop-down-input"
-            placeholder={"Логин"}
+            placeholder={"Login"}
             onChange={handleChangeLogin}
           />
           <br />
@@ -147,7 +147,7 @@ export default function Dropdown() {
           <input
             name="password"
             className="drop-down-input"
-            placeholder={"Пароль"}
+            placeholder={"Password"}
             onChange={handleChangePassword}
           />
           <br />

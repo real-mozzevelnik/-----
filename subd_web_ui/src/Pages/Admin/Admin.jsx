@@ -5,9 +5,9 @@ import Users from "../../Components/Users/Users";
 
 export default function Admin() {
   return (
-    <div className="admin">
+    <div className="mainPage">
       <Header />
-      <div className="users">
+      <div className="bases">
         <Users />
       </div>
     </div>

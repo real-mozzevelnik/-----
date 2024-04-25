@@ -16,6 +16,9 @@ const myComponent = {
 };
 
 export default function Catalog() {
+  const [clickedId, setClickedId] = useState(-1);
+  const container = useRef();
+  // const [loading, setLoading] = useState(false);
   const apiClient = axios.create({
     baseURL: "http://localhost:3000",
     withCredentials: true,
@@ -73,15 +76,11 @@ export default function Catalog() {
         console.log(response.data);
         count = getInfoCount(response.data.data);
         countEntries = getInfoCountEntries(response.data.data);
-        localStorage.setItem("info", JSON.stringify(response.data.data));
       })
       .catch((error) => {
         console.log(error);
       });
   };
-
-  const [clickedId, setClickedId] = useState(-1);
-  const container = useRef();
 
   const cleanAbout = () => {
     setBase({ name: "", host: "", port: "", count: "", countEntries: "" });
@@ -122,7 +121,6 @@ export default function Catalog() {
                       } else {
                         if (clickedId === -1 || i !== clickedId) {
                           getBaseInfo(base.name, i);
-
                           setClickedId(i);
                           setBase({
                             name: base.name,

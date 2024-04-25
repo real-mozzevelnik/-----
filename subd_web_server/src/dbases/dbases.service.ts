@@ -77,22 +77,32 @@ export class BasesService {
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   async getInfo(nameDb: string) {
     const index = this.bases.findIndex(({ name }) => name === nameDb);
-    // this.bases[index].db.Connect();
+
     const databaseInfo = await this.bases[index].db.Info();
-    // console.log(JSON.stringify(databaseInfo, null, 4));
+
     return JSON.stringify(databaseInfo, null, 4);
   }
 
   async getDataFromBd(nameDb: string, nameTable: string) {
+    console.log(nameTable);
     const index = this.bases.findIndex(({ name }) => name === nameDb);
-    // this.bases[index].db.Connect();
-    console.log(` 1 select age, email, job, name, phone from ${nameTable};`);
+
+    let query = '';
+    if (nameTable === 'users1') {
+      query = 'age, job, name';
+    } else if (nameTable === 'users') query = 'age, email, job, name, phone';
+
     const databaseInfo = await this.bases[index].db.SqlStatement(
-      `select age, email, job, name, phone from ${nameTable};`,
+      `select ${query} from ${nameTable};`,
     );
-    console.log(JSON.stringify(databaseInfo, null, 4));
-    console.log(` 2 select age, email, job, name, phone from ${nameTable};`);
-    console.log(JSON.stringify(databaseInfo, null, 4));
+
+    return JSON.stringify(databaseInfo, null, 4);
+  }
+
+  async getQuery(nameDb: string, query: string) {
+    console.log(query);
+    const index = this.bases.findIndex(({ name }) => name === nameDb);
+    const databaseInfo = await this.bases[index].db.SqlStatement(`${query}`);
     return JSON.stringify(databaseInfo, null, 4);
   }
 }

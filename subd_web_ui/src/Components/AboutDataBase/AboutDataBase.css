@@ -11,7 +11,7 @@
 
 .containerAboutBase {
   display: flex;
-  flex-direction: row-reverse;
+  flex-direction: row;
   align-content: space-between;
   justify-content: space-between;
   flex-wrap: wrap;
@@ -47,4 +47,10 @@
   color: white;
   text-align: center;
   padding: 5px;
+}
+
+.infoLoad {
+  display: flex;
+  flex-direction: row;
+  align-items: start;
 }

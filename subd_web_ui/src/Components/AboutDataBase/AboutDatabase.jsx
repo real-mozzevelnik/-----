@@ -1,6 +1,7 @@
 /* eslint-disable no-prototype-builtins */
 /* eslint-disable react/prop-types */
 // import { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import "./AboutDataBase.css";
 // import Button from "../Button/Button";
 import axios from "axios";
@@ -17,10 +18,21 @@ export const AboutDataBase = ({
   countEntries,
   cleanInfo,
 }) => {
+  const [loading, setLoading] = useState(false);
+
   const apiClient = axios.create({
     baseURL: "http://localhost:3000",
     withCredentials: true,
   });
+
+  useEffect(() => {
+    if (name !== "") {
+      setLoading(false);
+      setTimeout(() => {
+        setLoading(true);
+      }, 2000);
+    }
+  }, [name]);
 
   const handleSumbit = () => {
     if (name !== "") {
@@ -42,13 +54,17 @@ export const AboutDataBase = ({
       <p className="titleUsers">Information about data base</p>
       <div className="containerAboutBase">
         {name !== "" ? (
-          <div className="information">
-            <p className="text">Name : {name}</p>
-            <p className="text">Host : {host}</p>
-            <p className="text">Port : {port}</p>
-            <p className="text">Count of tables: {count}</p>
-            <p className="text">Count of entries: {countEntries}</p>
-          </div>
+          !loading ? (
+            <h1 className="infoLoad">Info is loading</h1>
+          ) : (
+            <div className="information">
+              <p className="text">Name : {name}</p>
+              <p className="text">Host : {host}</p>
+              <p className="text">Port : {port}</p>
+              <p className="text">Count of tables: {count}</p>
+              <p className="text">Count of entries: {countEntries}</p>
+            </div>
+          )
         ) : (
           <div className="information">
             <p className="text">Choose database for check info</p>

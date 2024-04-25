@@ -10,6 +10,7 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "@blueprintjs/core": "^5.10.2",
     "@faker-js/faker": "^8.4.1",
     "axios": "^1.6.8",
     "match-sorter": "^6.3.4",

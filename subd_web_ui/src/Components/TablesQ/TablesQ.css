@@ -1,0 +1,35 @@
+.userSelectT1 {
+  margin-left: 10px;
+  background-color: white;
+  width: auto;
+  white-space: nowrap;
+  width: 230px;
+  text-align: start;
+  padding: auto;
+  font-weight: normal;
+  font-size: 18px;
+}
+.userSelectActiveT1 {
+  margin-left: 10px;
+  background-color: darkseagreen;
+  color: white;
+  width: auto;
+  white-space: nowrap;
+  width: 230px;
+  text-align: start;
+  padding: auto;
+  font-weight: normal;
+  font-size: 18px;
+}
+
+.table {
+  margin-left: 25px;
+  background-color: white;
+  width: auto;
+  white-space: nowrap;
+  width: 230px;
+  text-align: start;
+  padding: auto;
+  font-weight: normal;
+  font-size: 18px;
+}

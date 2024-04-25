@@ -2,7 +2,7 @@
 /* eslint-disable react/prop-types */
 // import { useCallback, useEffect, useState } from "react";
 import "./PaginationTable.css";
-import { useEffect, useState, useRef } from "react";
+import { useEffect, useState } from "react";
 import axios from "axios";
 import Pagination from "./Paginations";
 
@@ -28,17 +28,14 @@ export default function PaginationTables({ name, table }) {
     apiClient
       .post("/dbases/getData", { name: name, table: table })
       .then((response) => {
-        console.log(response);
         for (let obj in response.data.data.result)
           data.push(Object.values(response.data.data.result[obj]));
       })
       .catch((error) => {
         console.log(error);
-        ``;
       });
   };
 
-  // const totalPage = Math.ceil(data.length / entriesPerPage);
   const lastEntriesIndex = currentPage * entriesPerPage;
   const firstEntriesIndex = lastEntriesIndex - entriesPerPage;
   const currentEntries = data.slice(firstEntriesIndex, lastEntriesIndex);
@@ -65,8 +62,9 @@ export default function PaginationTables({ name, table }) {
   };
 
   useEffect(() => {
-    console.log(table);
     if (name !== "" && table !== "") {
+      data = [];
+      setLoading(false);
       getBaseInfo(name, table);
       getDataFromTable();
       setTimeout(() => {
@@ -78,7 +76,7 @@ export default function PaginationTables({ name, table }) {
         setLoading(false);
       }
     }
-  }, [table]);
+  }, [name, table]);
 
   return (
     <>

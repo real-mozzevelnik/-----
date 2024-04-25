@@ -1,30 +1,43 @@
 .users-container {
-  height: 90vh;
+  /*height: 90vh;
   min-height: 90vh;
   background-color: darkseagreen;
   flex: 1;
-
   align-items: center;
-
   border-radius: 5px;
   float: left;
   margin-right: 30px;
   margin-left: 30px;
+  */
+  display: flex;
+  height: 600px;
+  width: 600px;
+  background-color: darkseagreen;
+  border-radius: 5px;
+  align-items: center;
+  flex-direction: column;
 }
 
 .containerUs {
-  padding: 10px 10px 10px 10px;
+  /*padding: 10px 10px 10px 10px;
   margin: 10px 10px 40px 10px;
   background-color: white;
   border-radius: 5px;
   height: 80vh;
   min-height: 80vh;
+  */
+  width: 90%;
+  height: 85%;
+  background-color: white;
+  border-radius: 5px;
+  margin-top: 5px;
 }
 
 .containerUsScroll {
+  width: 100%;
+  height: 100%;
   background-color: white;
-  height: 76vh;
-  min-height: 76vh;
+  border-radius: 5px;
 }
 
 li {
@@ -33,9 +46,7 @@ li {
 
 ul {
   margin-left: 0;
-  /* Отступ слева в браузере IE и Opera */
   padding-left: 0;
-  /* Отступ слева в браузере Firefox, Safari, Chrome */
 }
 
 .userSelect {
@@ -71,7 +82,7 @@ ul {
   color: black;
   text-align: center;
   padding: 0;
-  margin-top: 0;
+  margin-top: 5px;
   font-size: 24px;
 }
 .usersList {
@@ -80,7 +91,6 @@ ul {
 }
 .user {
   display: flex;
-
   justify-content: space-between;
 }
 

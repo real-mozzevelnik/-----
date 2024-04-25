@@ -1,11 +1,14 @@
 import "./Query.css";
 import { Header } from "../../Components/Header/Header";
+import Catalog from "../../Components/CatalogQ/CatalogQ";
 
 export default function Main() {
   return (
-    <div>
+    <div className="mainPage">
       <Header />
-      <h1>Здесь будет запрос</h1>
+      <div className="basesQ">
+        <Catalog />
+      </div>
     </div>
   );
 }

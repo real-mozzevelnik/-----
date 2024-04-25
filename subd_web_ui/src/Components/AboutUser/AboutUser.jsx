@@ -17,7 +17,6 @@ export const AboutUser = ({
   });
 
   const handleSumbit = () => {
-    console.log(login);
     apiClient
       .post("auth/delete", { login: login })
       .then((response) => {
@@ -33,11 +32,15 @@ export const AboutUser = ({
     <div className="aboutUsercontainer">
       <p className="titleUsers">Information about user</p>
       <div className="containerAbout">
-        <div className="information">
-          <p className="text">Login : {login}</p>
-          <p className="text">Password : {password}</p>
-          <p className="text">Role : {role}</p>
-        </div>
+        {login === "" ? (
+          <p className="text">Plese choose or create user</p>
+        ) : (
+          <div className="information">
+            <p className="text">Login : {login}</p>
+            <p className="text">Password : {password}</p>
+            <p className="text">Role : {role}</p>
+          </div>
+        )}
       </div>
       {login !== "" && (
         <div className="deleteButton">
